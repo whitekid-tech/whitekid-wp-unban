@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — Whitekid Wp Ban</title>
+<style>body{margin:0;font-family:system-ui,sans-serif;background:#0b1411;color:#e8f5ee;padding:20px}.w{max-width:760px;margin:auto}
+input,button{padding:12px;border-radius:10px;border:1px solid #1f3a30;background:#0c1914;color:#e8f5ee;font:inherit}button{background:#25d366;color:#06210f;font-weight:700;border:0;cursor:pointer}
+table{width:100%;border-collapse:collapse;margin-top:12px}td,th{padding:9px;border-bottom:1px solid #1f3a30;text-align:left;font-size:14px}.x{background:#5a2a2a;color:#ffb4b4;padding:6px 10px}
+.c{background:#111f1a;border:1px solid #1f3a30;border-radius:14px;padding:16px;margin-top:14px}.hide{display:none}</style></head><body><div class="w">
+<h2>🛡️ Admin</h2>
+<div id="login"><input id="k" type="password" placeholder="Admin key"> <button id="go">Open</button><p id="e" style="color:#ff8a8a"></p></div>
+<div id="main" class="hide"><div class="c"><b id="t"></b> total reports • <button id="csv">Download CSV</button></div>
+<div class="c"><h3>All reported numbers</h3><table id="rows"></table></div>
+<div class="c"><h3>Recent</h3><table id="rec"></table></div></div></div>
+<script>
+const $=i=>document.getElementById(i);let K='';
+const H=()=>({'x-admin-key':K});
+async function load(){const r=await fetch('/api/admin/data',{headers:H()});
+if(!r.ok){$('e').textContent='Wrong key or ADMIN_KEY not set on the server.';return;}
+const d=await r.json();$('login').classList.add('hide');$('main').classList.remove('hide');$('t').textContent=d.total;
+$('rows').innerHTML='<tr><th>Number</th><th>Reports</th><th></th></tr>'+d.rows.map(x=>`<tr><td>${x.number}</td><td>${x.count}</td><td><button class="x" data-n="${x.number}">Remove</button></td></tr>`).join('');
+$('rec').innerHTML=d.recent.map(x=>`<tr><td>${x.number}</td><td>${x.type}</td><td>${new Date(x.at).toLocaleString()}</td></tr>`).join('');}
+$('go').onclick=()=>{K=$('k').value;load();};
+$('rows').onclick=async e=>{const n=e.target.dataset.n;if(n&&confirm('Remove '+n+'?')){await fetch('/api/admin/number?number='+encodeURIComponent(n),{method:'DELETE',headers:H()});load();}};
+$('csv').onclick=async()=>{const b=await (await fetch('/api/admin/export.csv',{headers:H()})).blob();const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='reports.csv';a.click();};
+</script></body></html>

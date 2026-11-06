@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whitekid Wp ban — Report WhatsApp Scammers</title>
+<meta name="theme-color" content="#0b1411">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+<style>
+:root{--bg:#0b1411;--card:#111f1a;--line:#1f3a30;--tx:#e8f5ee;--mut:#8fb3a2;--g:#25d366;--r:#ff5c5c}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(900px 500px at 80% -10%,#12402d55,transparent),var(--bg);color:var(--tx);line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;align-items:center;justify-content:space-between;padding:8px 0 24px}
+.logo{font-weight:800;font-size:18px;letter-spacing:.3px}.logo span{color:var(--g)}
+.pill{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:4px 10px;color:var(--mut)}
+h1{font-size:clamp(28px,6vw,44px);line-height:1.1;margin:0 0 10px}h1 em{font-style:normal;color:var(--g)}
+.sub{color:var(--mut);max-width:560px;margin:0 0 24px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+.stat b{display:block;font-size:24px;color:var(--g)}.stat small{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}
+.card h2{margin:0 0 12px;font-size:17px}
+label{font-size:13px;color:var(--mut);display:block;margin:12px 0 6px}
+input,textarea,select{width:100%;background:#0c1914;border:1px solid var(--line);border-radius:12px;color:var(--tx);padding:13px;font:inherit;outline:none}
+input:focus,textarea:focus{border-color:var(--g)}textarea{min-height:170px;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:#0c1914;color:var(--mut);border-radius:99px;padding:7px 13px;font-size:13px;cursor:pointer}
+.chip.on{background:var(--g);color:#06210f;border-color:var(--g);font-weight:700}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button,.btn{flex:1;min-width:160px;text-align:center;text-decoration:none;border:0;border-radius:12px;padding:13px 16px;font:inherit;font-weight:700;cursor:pointer;color:#06210f;background:var(--g)}
+.alt{background:transparent;color:var(--tx);border:1px solid var(--line)}
+.warn{background:#2a1515;border:1px solid #5a2a2a;color:#ffb4b4;border-radius:12px;padding:10px 12px;font-size:13px;margin-top:12px}
+.ok{color:var(--g);font-size:13px;margin-top:8px;min-height:18px}
+.hidden{display:none}
+ol,ul{padding-left:20px;color:var(--mut)}li{margin:6px 0}
+.list div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.list div:last-child{border:0}.list span{color:var(--mut)}
+.tag{color:var(--r);font-weight:700}
+footer{text-align:center;color:var(--mut);font-size:12px;margin-top:30px}
+@media(max-width:520px){.stats{grid-template-columns:1fr 1fr 1fr}.stat b{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="logo">🛡️ WHITEKID <span>WP BAN</span></div><div class="pill">Free • No login</div></header>
+
+<h1>Report a scammer on <em>WhatsApp</em> in seconds</h1>
+<p class="sub">Paste the scammer's number, pick the scam type, and we write the report for you. Then send it straight to WhatsApp support.</p>
+
+<div class="stats">
+<div class="stat"><b id="sTotal">0</b><small>Reports made</small></div>
+<div class="stat"><b id="sUnique">0</b><small>Numbers reported</small></div>
+<div class="stat"><b id="sMine">0</b><small>Your reports</small></div>
+</div>
+
+<div class="card">
+<h2>1. Scammer details</h2>
+<label for="num">Scammer's WhatsApp number (with country code)</label>
+<input id="num" type="tel" inputmode="tel" placeholder="+263 77 123 4567" autocomplete="off">
+<div class="ok" id="check"></div>
+<label>Type of scam</label>
+<div class="chips" id="types"></div>
+<label for="note">What happened? (optional, one or two lines)</label>
+<input id="note" maxlength="200" placeholder="e.g. asked me to send $50 for a job fee">
+<label for="lang">Message language</label>
+<select id="lang"><option value="en">English (recommended for WhatsApp support)</option><option value="sn">Shona</option><option value="fr">Français</option><option value="pt">Português</option><option value="es">Español</option></select>
+<div class="row"><button id="gen">Generate report message ➜</button></div>
+</div>
+
+<div class="card hidden" id="out">
+<h2>2. Your message — edit it if you want</h2>
+<textarea id="msg"></textarea>
+<div class="row">
+<a class="btn" id="mail" target="_blank" rel="noopener">✉️ Email WhatsApp Support</a>
+<a class="btn" id="wa" target="_blank" rel="noopener">💬 Send on WhatsApp</a>
+<button class="alt" id="copy">📋 Copy message</button>
+</div>
+<div class="ok" id="done"></div>
+<div class="warn">Only report numbers that really scammed or harassed you. False reports can get your own number flagged.</div>
+</div>
+
+<div class="card">
+<h2>3. Also report inside WhatsApp (works best)</h2>
+<ol>
+<li>Open the scammer's chat → tap their name → <b>Report</b>.</li>
+<li>Tick “Block contact and delete chat”, then confirm.</li>
+<li>Ask 3–5 friends who got the same messages to report the same number.</li>
+<li>Email the message above with screenshots attached as evidence.</li>
+</ol>
+</div>
+
+<div class="card">
+<h2>Join the Whitekid community</h2>
+<p style="color:var(--mut);margin:0">Get scam alerts and tools from Whitekid Tech.</p>
+<div class="row"><a class="btn" href="https://whatsapp.com/channel/0029VbE9GwO2P59fKhOKUT3B" target="_blank" rel="noopener">📢 WhatsApp Channel</a><a class="btn alt" href="https://github.com/whitekid-tech" target="_blank" rel="noopener">GitHub</a></div>
+</div>
+
+<div class="card">
+<h2>Evidence checklist</h2>
+<ul>
+<li>Screenshots of the chat and the scammer's profile</li>
+<li>Payment details they asked for (wallet, bank, mobile money number)</li>
+<li>Any links they sent (don't open them)</li>
+<li>Dates and times of the messages</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Most reported numbers</h2>
+<div class="list" id="top"><span>No reports yet.</span></div>
+</div>
+
+<div class="card">
+<h2>Stay safe from scams</h2>
+<ul>
+<li>Never share your WhatsApp 6-digit code with anyone.</li>
+<li>Real jobs and prizes never ask you to pay first.</li>
+<li>If “family” messages from a new number asking for money, call the old number.</li>
+<li>Turn on two-step verification in Settings → Account.</li>
+</ul>
+</div>
+
+<footer>© <span id="yr"></span> Whitekid Tech • Not affiliated with WhatsApp or Meta</footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let cfg = { email: 'support@whatsapp.com', waNumber: '', types: [] }, type = '';
+$('yr').textContent = new Date().getFullYear();
+const mine = () => +(localStorage.wpu_mine || 0);
+$('sMine').textContent = mine();
+const clean = v => '+' + v.replace(/\D/g, '');
+const ok = v => /^\+\d{7,15}$/.test(clean(v));
+
+async function stats() {
+  try {
+    const s = await (await fetch('/api/stats')).json();
+    $('sTotal').textContent = s.total; $('sUnique').textContent = s.unique;
+    if (s.top.length) $('top').innerHTML = s.top.map(t => `<div><b>${t.number}</b><span class="tag">${t.count} reports</span></div>`).join('');
+  } catch (e) {}
+}
+(async () => {
+  try { cfg = await (await fetch('/api/config')).json(); } catch (e) {}
+  $('types').innerHTML = cfg.types.map(t => `<span class="chip" data-t="${t}">${t}</span>`).join('');
+  $('types').onclick = e => { const c = e.target.closest('.chip'); if (!c) return;
+    document.querySelectorAll('.chip').forEach(x => x.classList.remove('on')); c.classList.add('on'); type = c.dataset.t; };
+  stats();
+})();
+
+let timer;
+$('num').oninput = () => { clearTimeout(timer); $('check').textContent = '';
+  if (!ok($('num').value)) return;
+  timer = setTimeout(async () => {
+    try { const r = await (await fetch('/api/check?number=' + encodeURIComponent(clean($('num').value)))).json();
+      $('check').textContent = r.count ? `⚠️ This number was already reported ${r.count} time(s) here.` : 'No reports for this number here yet.';
+    } catch (e) {} }, 500);
+};
+
+const LANG = {
+en: (n,t,x)=>`Hello WhatsApp Support,\n\nI am reporting the number ${n} for scamming people on WhatsApp. This account is being used for: ${t}.${x?'\n\nWhat happened: '+x:''}\n\nThis number is scamming users and you know how these accounts operate. Please review the account and ban it permanently to protect other people. I can provide screenshots as evidence.\n\nThank you.`,
+sn: (n,t,x)=>`Mhoro WhatsApp Support,\n\nNdiri kuzivisa nhamba ${n} iri kubira vanhu paWhatsApp. Account iyi iri kushandiswa pa: ${t}.${x?'\n\nZvakaitika: '+x:''}\n\nNhamba iyi iri kubira vanhu uye munoziva mashandiro eaccount dzakadai. Ndapota tarisai account iyi muibhane zvachose kuti muchengetedze vamwe vanhu. Ndinogona kutumira screenshots sehumbowo.\n\nMaita basa.`,
+fr: (n,t,x)=>`Bonjour l'assistance WhatsApp,\n\nJe signale le numéro ${n} pour arnaque sur WhatsApp. Ce compte est utilisé pour : ${t}.${x?'\n\nCe qui s’est passé : '+x:''}\n\nCe numéro arnaque des utilisateurs et vous connaissez le fonctionnement de ces comptes. Merci d'examiner ce compte et de le bannir définitivement pour protéger les autres. Je peux fournir des captures d'écran.\n\nMerci.`,
+pt: (n,t,x)=>`Olá, Suporte do WhatsApp,\n\nEstou denunciando o número ${n} por aplicar golpes no WhatsApp. Esta conta é usada para: ${t}.${x?'\n\nO que aconteceu: '+x:''}\n\nEste número está enganando usuários e vocês conhecem o funcionamento dessas contas. Peço que analisem e banam a conta permanentemente para proteger outras pessoas. Posso enviar capturas de tela como prova.\n\nObrigado.`,
+es: (n,t,x)=>`Hola, Soporte de WhatsApp,\n\nDenuncio el número ${n} por estafar a personas en WhatsApp. Esta cuenta se usa para: ${t}.${x?'\n\nLo que pasó: '+x:''}\n\nEste número está estafando a usuarios y ustedes saben cómo operan estas cuentas. Por favor revisen la cuenta y bloqueenla de forma permanente para proteger a otros. Puedo enviar capturas de pantalla como evidencia.\n\nGracias.`
+};
+function build() {
+  return LANG[$('lang').value](clean($('num').value), type || 'Scam', $('note').value.trim());
+}
+function links() {
+  const m = $('msg').value;
+  $('mail').href = `mailto:${cfg.email}?subject=${encodeURIComponent('Scam report: ' + clean($('num').value))}&body=${encodeURIComponent(m)}`;
+  $('wa').href = `https://wa.me/${cfg.waNumber}?text=${encodeURIComponent(m)}`;
+}
+$('msg').oninput = links;
+
+$('gen').onclick = async () => {
+  if (!ok($('num').value)) { alert('Enter the number with country code, e.g. +263771234567'); return; }
+  if (!type) { alert('Pick the type of scam.'); return; }
+  $('msg').value = build(); links();
+  $('out').classList.remove('hidden'); $('out').scrollIntoView({ behavior: 'smooth' });
+  try {
+    const r = await (await fetch('/api/report', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ number: clean($('num').value), type }) })).json();
+    if (r.count) { localStorage.wpu_mine = mine() + 1; $('sMine').textContent = mine();
+      $('done').textContent = `Logged. This number now has ${r.count} report(s) on Whitekid Wp ban.`; stats(); }
+  } catch (e) {}
+};
+$('copy').onclick = async () => { try { await navigator.clipboard.writeText($('msg').value); $('copy').textContent = '✅ Copied'; } catch (e) { $('msg').select(); document.execCommand('copy'); }
+  setTimeout(() => $('copy').textContent = '📋 Copy message', 2000); };
+</script>
+</body>
+</html>
