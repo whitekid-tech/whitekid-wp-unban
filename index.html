@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Whitekid Wp ban — Report WhatsApp Scammers</title>
+<title>Whitekid Wp Ban — Report WhatsApp Scammers</title>
 <meta name="theme-color" content="#0b1411">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
 <style>
@@ -127,7 +127,7 @@ footer{text-align:center;color:var(--mut);font-size:12px;margin-top:30px}
 const $ = id => document.getElementById(id);
 let cfg = { email: 'support@whatsapp.com', waNumber: '', types: [] }, type = '';
 $('yr').textContent = new Date().getFullYear();
-const mine = () => +(localStorage.wpu_mine || 0);
+const mine = () => +(localStorage.wpb_mine || 0);
 $('sMine').textContent = mine();
 const clean = v => '+' + v.replace(/\D/g, '');
 const ok = v => /^\+\d{7,15}$/.test(clean(v));
@@ -180,8 +180,8 @@ $('gen').onclick = async () => {
   $('out').classList.remove('hidden'); $('out').scrollIntoView({ behavior: 'smooth' });
   try {
     const r = await (await fetch('/api/report', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ number: clean($('num').value), type }) })).json();
-    if (r.count) { localStorage.wpu_mine = mine() + 1; $('sMine').textContent = mine();
-      $('done').textContent = `Logged. This number now has ${r.count} report(s) on Whitekid Wp ban.`; stats(); }
+    if (r.count) { localStorage.wpb_mine = mine() + 1; $('sMine').textContent = mine();
+      $('done').textContent = `Logged. This number now has ${r.count} report(s) on Whitekid Wp Ban.`; stats(); }
   } catch (e) {}
 };
 $('copy').onclick = async () => { try { await navigator.clipboard.writeText($('msg').value); $('copy').textContent = '✅ Copied'; } catch (e) { $('msg').select(); document.execCommand('copy'); }

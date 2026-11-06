@@ -12,7 +12,8 @@ const save = () => fs.writeFile(FILE, JSON.stringify(db), () => {});
 
 app.set('trust proxy', 1);
 app.use(express.json({ limit: '5kb' }));
-app.use(express.static(path.join(__dirname, 'public')));
+const pick = f => fs.existsSync(path.join(__dirname, 'public', f)) ? path.join(__dirname, 'public', f) : path.join(__dirname, f);
+app.get('/', (_, res) => res.sendFile(pick('index.html')));
 
 const hits = new Map();
 const limit = (req, res, next) => {
@@ -63,7 +64,7 @@ const auth = (req, res, next) => {
   if (!ADMIN_KEY || a.length !== b.length || !crypto.timingSafeEqual(a, b)) return res.status(401).json({ error: 'Wrong key' });
   next();
 };
-app.get('/admin', (_, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
+app.get('/admin', (_, res) => res.sendFile(pick('admin.html')));
 app.get('/api/admin/data', limit, auth, (_, res) => {
   const rows = Object.entries(db.numbers).sort((a, b) => b[1] - a[1]).map(([number, count]) => ({ number, count }));
   res.json({ total: db.total, rows, recent: db.recent });
@@ -77,4 +78,4 @@ app.get('/api/admin/export.csv', limit, auth, (_, res) => {
   res.type('text/csv').send('number,reports\n' + Object.entries(db.numbers).map(([n, c]) => n + ',' + c).join('\n'));
 });
 
-app.listen(PORT, () => console.log('Whitekid Wp ban running on ' + PORT));
+app.listen(PORT, () => console.log('Whitekid Wp Ban running on ' + PORT));
