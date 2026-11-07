@@ -3,12 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Whitekid Wp Ban — Report WhatsApp Scammers</title>
+<title>WHITEKID WP BAN — WhatsApp Scam Safety Platform</title>
+<meta name="description" content="Check suspicious numbers, messages and links, report WhatsApp scams and learn how to recover a banned account. By Whitekid Tech.">
+<meta property="og:title" content="WHITEKID WP BAN"><meta property="og:description" content="WhatsApp scam detection, reporting and account recovery guidance by Whitekid Tech."><meta property="og:type" content="website"><meta property="og:image" content="/icon.svg"><meta name="twitter:card" content="summary">
+<link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#0b1411">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+<link rel="icon" href="/icon.svg" type="image/svg+xml"><text y='.9em' font-size='90'>🛡️</text></svg>">
 <style>
-:root{--bg:#0b1411;--card:#111f1a;--line:#1f3a30;--tx:#e8f5ee;--mut:#8fb3a2;--g:#25d366;--r:#ff5c5c}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(900px 500px at 80% -10%,#12402d55,transparent),var(--bg);color:var(--tx);line-height:1.5}
+:root{--bg:#05070f;--card:#0d1226cc;--line:#25305a;--in:#0a0f21;--tx:#e8ecff;--mut:#94a0cf;--g:#4d7cff;--p:#a259ff;--r:#ff5c7a}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(900px 500px at 80% -10%,#4d7cff33,transparent),var(--bg);color:var(--tx);line-height:1.5}
 .wrap{max-width:860px;margin:0 auto;padding:20px 16px 60px}
 header{display:flex;align-items:center;justify-content:space-between;padding:8px 0 24px}
 .logo{font-weight:800;font-size:18px;letter-spacing:.3px}.logo span{color:var(--g)}
@@ -21,13 +24,13 @@ h1{font-size:clamp(28px,6vw,44px);line-height:1.1;margin:0 0 10px}h1 em{font-sty
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}
 .card h2{margin:0 0 12px;font-size:17px}
 label{font-size:13px;color:var(--mut);display:block;margin:12px 0 6px}
-input,textarea,select{width:100%;background:#0c1914;border:1px solid var(--line);border-radius:12px;color:var(--tx);padding:13px;font:inherit;outline:none}
+input,textarea,select{width:100%;background:var(--in);border:1px solid var(--line);border-radius:12px;color:var(--tx);padding:13px;font:inherit;outline:none}
 input:focus,textarea:focus{border-color:var(--g)}textarea{min-height:170px;resize:vertical}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid var(--line);background:#0c1914;color:var(--mut);border-radius:99px;padding:7px 13px;font-size:13px;cursor:pointer}
-.chip.on{background:var(--g);color:#06210f;border-color:var(--g);font-weight:700}
+.chip{border:1px solid var(--line);background:var(--in);color:var(--mut);border-radius:99px;padding:7px 13px;font-size:13px;cursor:pointer}
+.chip.on{background:var(--g);color:#fff;border-color:var(--g);font-weight:700}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-button,.btn{flex:1;min-width:160px;text-align:center;text-decoration:none;border:0;border-radius:12px;padding:13px 16px;font:inherit;font-weight:700;cursor:pointer;color:#06210f;background:var(--g)}
+button,.btn{flex:1;min-width:160px;text-align:center;text-decoration:none;border:0;border-radius:12px;padding:13px 16px;font:inherit;font-weight:700;cursor:pointer;color:#fff;background:var(--g)}
 .alt{background:transparent;color:var(--tx);border:1px solid var(--line)}
 .warn{background:#2a1515;border:1px solid #5a2a2a;color:#ffb4b4;border-radius:12px;padding:10px 12px;font-size:13px;margin-top:12px}
 .ok{color:var(--g);font-size:13px;margin-top:8px;min-height:18px}
@@ -38,11 +41,25 @@ ol,ul{padding-left:20px;color:var(--mut)}li{margin:6px 0}
 .tag{color:var(--r);font-weight:700}
 footer{text-align:center;color:var(--mut);font-size:12px;margin-top:30px}
 @media(max-width:520px){.stats{grid-template-columns:1fr 1fr 1fr}.stat b{font-size:19px}}
+
+[data-theme=light]{--bg:#f3f5ff;--card:#ffffffd9;--line:#d3d9f3;--in:#fff;--tx:#10143a;--mut:#555f8f}
+body{background:radial-gradient(900px 500px at 85% -10%,#a259ff33,transparent),radial-gradient(800px 500px at 0 0,#4d7cff33,transparent),var(--bg)!important}
+.card,.stat{backdrop-filter:blur(14px);animation:up .5s both}@keyframes up{from{opacity:0;transform:translateY(10px)}}
+button,.btn{background:linear-gradient(90deg,var(--g),var(--p))!important;color:#fff!important}.alt{background:transparent!important;color:var(--tx)!important}
+nav{position:sticky;top:0;z-index:9;display:flex;gap:6px;overflow-x:auto;padding:8px;margin:0 -4px 14px;background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:14px}
+nav a{white-space:nowrap;color:var(--mut);text-decoration:none;font-size:13px;padding:6px 11px;border-radius:99px}nav a:hover{background:var(--line);color:var(--tx)}
+.res{border:1px solid var(--line);border-left:4px solid var(--g);border-radius:12px;padding:12px;margin-top:12px}.res.high{border-left-color:var(--r)}.res.medium{border-left-color:#ff9f43}.res.low{border-left-color:#feca57}
+.banner{background:linear-gradient(90deg,#4d7cff33,#a259ff33);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:14px}
+details{border-bottom:1px solid var(--line);padding:8px 0}summary{cursor:pointer;font-weight:600}details p,details ol{color:var(--mut);margin:8px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+@media print{.wrap>*:not(#histc){display:none!important}body{background:#fff!important;color:#000}#histc{border:0}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header><div class="logo">🛡️ WHITEKID <span>WP BAN</span></div><div class="pill">Free • No login</div></header>
+<div class="wrap" id="top">
+<header><div class="logo">🛡️ WHITEKID <span>WP BAN</span></div><div class="pill" id="themeBtn" style="cursor:pointer">🌓 Theme</div></header>
+<div id="ann"></div>
+<nav><a href="#top">Report</a><a href="#detect">AI Detector</a><a href="#rep">Number Check</a><a href="#guide">Unban Guide</a><a href="#academy">Safety Academy</a><a href="#alerts">Alerts</a><a href="#histc">History</a><a href="#support">Support &amp; API</a></nav>
 
 <h1>Report a scammer on <em>WhatsApp</em> in seconds</h1>
 <p class="sub">Paste the scammer's number, pick the scam type, and we write the report for you. Then send it straight to WhatsApp support.</p>
@@ -120,7 +137,34 @@ footer{text-align:center;color:var(--mut);font-size:12px;margin-top:30px}
 </ul>
 </div>
 
-<footer>© <span id="yr"></span> Whitekid Tech • Not affiliated with WhatsApp or Meta</footer>
+
+<div class="card" id="detect"><h2>🤖 AI Scam Detector &amp; Link Scanner</h2>
+<label for="tx">Paste a suspicious message (job offers, investments, “verify your account”...)</label><textarea id="tx" style="min-height:110px" maxlength="3000"></textarea>
+<div class="row"><button id="az">Analyze message</button></div><div id="azr"></div>
+<label for="sl">Or check a link (it is never opened)</label><input id="sl" placeholder="https://example.com/..." autocomplete="off">
+<div class="row"><button id="slb">Scan link</button><label class="btn alt" style="margin:0;cursor:pointer;color:var(--tx)">📷 Scan QR image<input id="qr" type="file" accept="image/*" hidden></label></div><div id="slr"></div></div>
+<div class="card" id="rep"><h2>🔎 Number Reputation Check</h2>
+<input id="cn" type="tel" placeholder="+263 77 123 4567"><div class="row"><button id="cnb">Check reputation</button></div><div id="cnr"></div>
+<p style="color:var(--mut);font-size:13px">Based only on unverified community reports from different people. Never a confirmed verdict.</p></div>
+<div class="card" id="guide"><h2>🔓 WhatsApp Unban &amp; Recovery Guide</h2>
+<p style="color:var(--mut)">No website can unban a number. Only WhatsApp can. This guide shows the official routes. Anyone promising a paid or instant unban is likely a scam.</p>
+<details><summary>My account says “banned” or “temporarily banned”</summary><ol><li>Open WhatsApp and read the message on screen. It tells you if the ban is temporary and for how long.</li><li>Tap <b>Request a review</b> (or “Support”) if it appears, and describe the problem calmly.</li><li>Wait. Repeated requests can delay the review.</li><li>If there is no in-app option, email support with your number in full international format, e.g. +263..., and explain that you use the official app.</li></ol></details>
+<details><summary>Common reasons for bans</summary><p>Using modified apps (GB WhatsApp, etc.), bulk or automated messages, many people blocking or reporting you, joining many unknown groups, or sending spam links. Uninstall unofficial apps and use the official one.</p></details>
+<details><summary>Emergency: my account was hacked or stolen</summary><ol><li>Install WhatsApp and sign in with your number to get a new code. This logs the hacker out.</li><li>If you see “Enter your two-step PIN”, you must wait up to 7 days or use your reset email.</li><li>Warn your contacts and groups, and turn on two-step verification right away.</li></ol></details>
+<details><summary>Why am I seeing a new-device or code SMS I did not ask for?</summary><p>Someone may be trying your number. Do not share the code with anyone, even a “friend” asking for it.</p></details></div>
+<div class="card" id="academy"><h2>🎓 WhatsApp Safety Academy</h2>
+<details><summary>Fake jobs</summary><p>Real employers do not charge fees, ask for deposits, or hire only through WhatsApp chats. Check the company on its official website.</p></details>
+<details><summary>Fake investments</summary><p>“Guaranteed” or daily returns, trading signals and “double your money” offers are classic scams. Real investments carry risk.</p></details>
+<details><summary>Phishing &amp; code theft</summary><p>Never share your 6-digit code or PIN. Do not log in through links sent in chat. WhatsApp never asks for your code in a message.</p></details>
+<details><summary>Turn on security</summary><ol><li>Settings → Account → Two-step verification → Enable.</li><li>Settings → Privacy → set Groups to “My contacts”.</li><li>Settings → Linked devices: remove any device you do not know.</li></ol></details></div>
+<div class="card" id="alerts"><h2>🚨 Live Scam Alert Center</h2><div id="alist" class="list"><span>Loading...</span></div></div>
+<div class="card" id="histc"><h2>🗂️ My Report History</h2><div id="hist" class="list"><span>No reports yet.</span></div>
+<div class="row"><button id="pdf">Export as PDF</button><button class="alt" id="hclr">Clear history</button></div><p style="color:var(--mut);font-size:13px">Stored only in this browser. Export opens the print dialog: choose “Save as PDF”.</p></div>
+<div class="card" id="support"><h2>💬 Support, Feedback &amp; Public API</h2>
+<div class="grid2"><div><label for="fbn">Name (optional)</label><input id="fbn" maxlength="60"></div><div><label for="fbm">Message</label><input id="fbm" maxlength="1000" placeholder="Feedback or a problem"></div></div>
+<div class="row"><button id="fbb">Send to Whitekid Tech</button></div><div class="ok" id="fbr"></div>
+<details><summary>Public reputation API</summary><p><code>GET /api/v1/reputation?number=%2B263771234567</code><br>Returns <code>{count, level, label}</code>. Rate-limited. Never returns phone numbers or evidence.</p></details></div>
+<footer>© <span id="yr"></span> WHITEKID WP BAN • Developed and maintained by Whitekid Tech • Independent project, not affiliated with or endorsed by WhatsApp or Meta</footer>
 </div>
 
 <script>
@@ -176,7 +220,7 @@ $('msg').oninput = links;
 $('gen').onclick = async () => {
   if (!ok($('num').value)) { alert('Enter the number with country code, e.g. +263771234567'); return; }
   if (!type) { alert('Pick the type of scam.'); return; }
-  $('msg').value = build(); links();
+  $('msg').value = build(); links(); addHist();
   $('out').classList.remove('hidden'); $('out').scrollIntoView({ behavior: 'smooth' });
   try {
     const r = await (await fetch('/api/report', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ number: clean($('num').value), type }) })).json();
@@ -186,6 +230,28 @@ $('gen').onclick = async () => {
 };
 $('copy').onclick = async () => { try { await navigator.clipboard.writeText($('msg').value); $('copy').textContent = '✅ Copied'; } catch (e) { $('msg').select(); document.execCommand('copy'); }
   setTimeout(() => $('copy').textContent = '📋 Copy message', 2000); };
+
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const post=(u,b)=>fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}).then(r=>r.json()).catch(()=>({error:'Network error. Try again.'}));
+const box=(el,d)=>{el.innerHTML=d.error?`<div class="warn">${esc(d.error)}</div>`:`<div class="res ${d.level}"><b>${esc(d.verdict||d.label)}</b>${d.reasons&&d.reasons.length?'<ul>'+d.reasons.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':''}${d.ai?`<p>🤖 ${esc(d.ai)}</p>`:''}<small>${esc(d.advice||'')} ${esc(d.aiNote||'')}</small></div>`};
+$('az').onclick=async()=>box($('azr'),await post('/api/analyze',{text:$('tx').value}));
+const scan=async u=>box($('slr'),await post('/api/scan-link',{url:u}));
+$('slb').onclick=()=>scan($('sl').value);
+$('cnb').onclick=async()=>{const n=clean($('cn').value);try{box($('cnr'),await (await fetch('/api/check?number='+encodeURIComponent(n))).json())}catch(e){box($('cnr'),{error:'Network error.'})}};
+$('qr').onchange=async e=>{const f=e.target.files[0];if(!f)return;if(!('BarcodeDetector' in window)){box($('slr'),{error:'QR scanning is not supported by this browser. Try Chrome on Android or desktop.'});return}
+ try{const r=await new BarcodeDetector({formats:['qr_code']}).detect(await createImageBitmap(f));if(!r.length)return box($('slr'),{error:'No QR code found in that image.'});const v=r[0].rawValue;$('sl').value=v;/^(https?:\/\/|www\.)/i.test(v)?scan(v):box($('slr'),{level:'low',verdict:'QR contains text, not a link',advice:v})}catch(x){box($('slr'),{error:'Could not read that image.'})}};
+const hist=()=>{try{return JSON.parse(localStorage.wpb_hist||'[]')}catch(e){return[]}};
+function addHist(){const h=hist();h.unshift({n:clean($('num').value),t:type,d:new Date().toLocaleString()});localStorage.wpb_hist=JSON.stringify(h.slice(0,50));showHist()}
+function showHist(){const h=hist();$('hist').innerHTML=h.length?h.map(x=>`<div><b>${esc(x.n)}</b><span>${esc(x.t)} • ${esc(x.d)}</span></div>`).join(''):'<span>No reports yet.</span>'}
+$('pdf').onclick=()=>print();$('hclr').onclick=()=>{localStorage.removeItem('wpb_hist');showHist()};showHist();
+$('fbb').onclick=async()=>{const r=await post('/api/feedback',{name:$('fbn').value,message:$('fbm').value});$('fbr').textContent=r.error||'Thank you! Message sent.';if(!r.error)$('fbm').value=''};
+const th=localStorage.wpb_theme||'dark';document.documentElement.dataset.theme=th;
+$('themeBtn').onclick=()=>{const t=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=t;localStorage.wpb_theme=t};
+(async()=>{try{if(!sessionStorage.wpb_hit){fetch('/api/hit',{method:'POST'});sessionStorage.wpb_hit=1}
+ const s=await (await fetch('/api/site')).json();if(s.error)throw 0;
+ $('ann').innerHTML=(s.maintenance?'<div class="banner">🛠️ Maintenance mode: reporting is paused for a moment.</div>':'')+(s.announcement?`<div class="banner">📢 ${esc(s.announcement)}</div>`:'');
+ $('alist').innerHTML=s.alerts.length?s.alerts.map(a=>`<div><b>${esc(a.title)}</b><span>${esc(a.body||'')}</span></div>`).join(''):'<span>No active alerts.</span>'}catch(e){$('alist').innerHTML='<span>Alerts unavailable right now.</span>'}})();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{});
 </script>
 </body>
 </html>

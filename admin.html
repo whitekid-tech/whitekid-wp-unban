@@ -1,22 +1,34 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — Whitekid Wp Ban</title>
-<style>body{margin:0;font-family:system-ui,sans-serif;background:#0b1411;color:#e8f5ee;padding:20px}.w{max-width:760px;margin:auto}
-input,button{padding:12px;border-radius:10px;border:1px solid #1f3a30;background:#0c1914;color:#e8f5ee;font:inherit}button{background:#25d366;color:#06210f;font-weight:700;border:0;cursor:pointer}
-table{width:100%;border-collapse:collapse;margin-top:12px}td,th{padding:9px;border-bottom:1px solid #1f3a30;text-align:left;font-size:14px}.x{background:#5a2a2a;color:#ffb4b4;padding:6px 10px}
-.c{background:#111f1a;border:1px solid #1f3a30;border-radius:14px;padding:16px;margin-top:14px}.hide{display:none}</style></head><body><div class="w">
-<h2>🛡️ Admin</h2>
-<div id="login"><input id="k" type="password" placeholder="Admin key"> <button id="go">Open</button><p id="e" style="color:#ff8a8a"></p></div>
-<div id="main" class="hide"><div class="c"><b id="t"></b> total reports • <button id="csv">Download CSV</button></div>
-<div class="c"><h3>All reported numbers</h3><table id="rows"></table></div>
-<div class="c"><h3>Recent</h3><table id="rec"></table></div></div></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Admin · WHITEKID WP BAN</title><link rel="icon" href="/icon.svg">
+<style>:root{--bg:#05070f;--c:#0d1226;--l:#25305a;--t:#e8ecff;--m:#94a0cf;--g:#4d7cff;--p:#a259ff}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--t);padding:16px}.w{max-width:900px;margin:auto}
+.c{background:var(--c);border:1px solid var(--l);border-radius:14px;padding:16px;margin-top:14px}input,textarea{width:100%;box-sizing:border-box;padding:11px;border-radius:10px;border:1px solid var(--l);background:#0a0f21;color:var(--t);font:inherit;margin:4px 0}
+button{padding:9px 14px;border:0;border-radius:10px;background:linear-gradient(90deg,var(--g),var(--p));color:#fff;font-weight:700;cursor:pointer}button.x{background:#5a2a3a}button.o{background:#1f6b4a}
+.k{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}.k div{background:#0a0f21;border:1px solid var(--l);border-radius:12px;padding:12px;text-align:center}.k b{display:block;font-size:24px;color:var(--g)}
+table{width:100%;border-collapse:collapse}td,th{padding:7px;border-bottom:1px solid var(--l);text-align:left;font-size:13px}.h{display:none}small{color:var(--m)}</style></head><body><div class="w">
+<h2>🛡️ WHITEKID WP BAN · Admin</h2>
+<div id="lg" class="c"><input id="pw" type="password" placeholder="Admin password"><button id="go">Sign in</button> <small id="er" style="color:#ff8a8a"></small></div>
+<div id="mn" class="h"><div class="k" id="k"></div>
+<div class="c"><b>Visitors, last 7 days</b><canvas id="ch" height="120" style="width:100%"></canvas></div>
+<div class="c"><b>Report moderation</b><small> (numbers are masked; the database stores only hashes)</small><div style="overflow-x:auto"><table id="rp"></table></div></div>
+<div class="c"><b>Announcement &amp; maintenance</b><input id="an" maxlength="300" placeholder="Announcement shown on the homepage"><label><input id="mt" type="checkbox" style="width:auto"> Maintenance mode (pauses reporting)</label><br><button id="sv">Save settings</button></div>
+<div class="c"><b>Scam alerts</b><input id="at" maxlength="120" placeholder="Alert title"><textarea id="ab" maxlength="500" placeholder="Details"></textarea><button id="ad">Publish alert</button><table id="al"></table></div>
+<div class="c"><b>User feedback</b><table id="fb"></table></div>
+<div class="c"><b>System status</b><div id="st"></div><small>AI and API keys are set as environment variables in Render, never in the browser.</small></div></div></div>
 <script>
-const $=i=>document.getElementById(i);let K='';
-const H=()=>({'x-admin-key':K});
-async function load(){const r=await fetch('/api/admin/data',{headers:H()});
-if(!r.ok){$('e').textContent='Wrong key or ADMIN_KEY not set on the server.';return;}
-const d=await r.json();$('login').classList.add('hide');$('main').classList.remove('hide');$('t').textContent=d.total;
-$('rows').innerHTML='<tr><th>Number</th><th>Reports</th><th></th></tr>'+d.rows.map(x=>`<tr><td>${x.number}</td><td>${x.count}</td><td><button class="x" data-n="${x.number}">Remove</button></td></tr>`).join('');
-$('rec').innerHTML=d.recent.map(x=>`<tr><td>${x.number}</td><td>${x.type}</td><td>${new Date(x.at).toLocaleString()}</td></tr>`).join('');}
-$('go').onclick=()=>{K=$('k').value;load();};
-$('rows').onclick=async e=>{const n=e.target.dataset.n;if(n&&confirm('Remove '+n+'?')){await fetch('/api/admin/number?number='+encodeURIComponent(n),{method:'DELETE',headers:H()});load();}};
-$('csv').onclick=async()=>{const b=await (await fetch('/api/admin/export.csv',{headers:H()})).blob();const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='reports.csv';a.click();};
+const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let T=sessionStorage.wpb_adm||'';
+const api=(u,m='GET',b)=>fetch(u,{method:m,headers:{'Content-Type':'application/json','x-admin-token':T},body:b?JSON.stringify(b):undefined}).then(r=>r.json());
+async function load(){const d=await api('/api/admin/overview');if(d.error){$('lg').classList.remove('h');$('mn').classList.add('h');if(T)$('er').textContent=d.error;return}
+$('lg').classList.add('h');$('mn').classList.remove('h');
+$('k').innerHTML=[['Visitors',d.visits],['Reports',d.reports],['Pending',d.pending],['Numbers',d.numbers],['Messages checked',d.messages],['Links scanned',d.links]].map(x=>`<div><b>${x[1]}</b><small>${x[0]}</small></div>`).join('');
+const cv=$('ch'),x=cv.getContext('2d');cv.width=cv.clientWidth;const mx=Math.max(1,...d.daily.map(r=>r.c)),bw=cv.width/d.daily.length;x.clearRect(0,0,cv.width,120);x.font='11px sans-serif';
+d.daily.forEach((r,i)=>{const h=r.c/mx*85;x.fillStyle='#4d7cff';x.fillRect(i*bw+8,100-h,bw-16,h);x.fillStyle='#94a0cf';x.fillText(r.day,i*bw+8,115);x.fillText(r.c,i*bw+8,95-h)});
+$('rp').innerHTML='<tr><th>#</th><th>Number</th><th>Type</th><th>Status</th><th></th></tr>'+d.recent.map(r=>`<tr><td>${r.id}</td><td>${esc(r.masked)}</td><td>${esc(r.type)}</td><td>${r.status}</td><td><button class="o" data-s="approved" data-i="${r.id}">✓</button> <button class="x" data-s="rejected" data-i="${r.id}">✗</button> <button class="x" data-d="${r.id}">🗑</button></td></tr>`).join('');
+$('an').value=d.announcement;$('mt').checked=d.maintenance;
+$('al').innerHTML=d.alerts.map(a=>`<tr><td>${esc(a.title)}</td><td><button class="x" data-a="${a.id}">Delete</button></td></tr>`).join('');
+$('fb').innerHTML=d.feedback.map(f=>`<tr><td>${esc(f.name||'Anonymous')}</td><td>${esc(f.message)}</td><td>${new Date(f.created).toLocaleDateString()}</td></tr>`).join('')||'<tr><td>No feedback yet</td></tr>';
+$('st').innerHTML=`Database: ✅ connected<br>AI (${esc(d.status.aiModel)}): ${d.status.ai?'✅ on':'❌ off, set ANTHROPIC_API_KEY'}<br>Safe Browsing: ${d.status.safeBrowsing?'✅ on':'❌ off, set GOOGLE_SAFE_BROWSING_KEY'}`}
+$('go').onclick=async()=>{const r=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('pw').value})}).then(r=>r.json());if(r.token){T=r.token;sessionStorage.wpb_adm=T;load()}else $('er').textContent=r.error};
+document.addEventListener('click',async e=>{const b=e.target;if(b.dataset.s)await api('/api/admin/report/'+b.dataset.i,'POST',{status:b.dataset.s});else if(b.dataset.d&&confirm('Delete this report?'))await api('/api/admin/report/'+b.dataset.d,'DELETE');else if(b.dataset.a)await api('/api/admin/alert/'+b.dataset.a,'DELETE');else return;load()});
+$('sv').onclick=async()=>{await api('/api/admin/settings','POST',{announcement:$('an').value,maintenance:$('mt').checked});load()};
+$('ad').onclick=async()=>{const r=await api('/api/admin/alert','POST',{title:$('at').value,body:$('ab').value});if(!r.error){$('at').value=$('ab').value=''}load()};
+if(T)load();
 </script></body></html>
